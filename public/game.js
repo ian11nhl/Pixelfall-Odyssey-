@@ -9,7 +9,7 @@ socket.emit('joinGame', chosenName || "Anonymous");
 const CONFIG = {
     GRAVITY: 0.5,
     FRICTION: 0.85,
-    WALK_SPEED: 4.5,
+    WALK_SPEED: 4,
     JUMP_FORCE: 13,
     SPAWN_X: 40,
     SPAWN_Y: 200,
