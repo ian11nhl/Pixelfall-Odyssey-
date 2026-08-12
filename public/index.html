@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixelfall Odyssey</title>
+    <style>
+        body { 
+            margin: 0; 
+            background: #1a0a05; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            font-family: sans-serif;
+            overflow: hidden;
+        }
+        canvas { 
+            background: #111; 
+            border: 3px solid #ff4500; 
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.4); 
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+    <!-- Client WebSockets Layer automatically hosted by Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
