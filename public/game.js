@@ -281,21 +281,11 @@ function runUpdateCycle() {
         let hitSpike = false;
         
                 // 2. Check for Spike damage with custom shrunk hitboxes
-        if (p.type === 3) { 
-            // Shrink the hitbox so the player has to deeply intersect the triangle center
-            const tightSpikeHitbox = {
-                x: p.x + 6,              // Shaves 6 pixels off the left edge
-                y: p.y + 8,              // Lowers the top edge by 8 pixels (forgiving tip)
-                width: p.width - 12,     // Narrows the overall box width
-                height: p.height - 8     // Shortens the overall box height
-            };
-
-            // Run collision detection against the new smaller target box instead of 'p'
-            if (Engine.checkAABB(local, tightSpikeHitbox)) {
-                hitSpike = true; 
-                return; 
-            }
-        }
+         platforms.forEach(p => {
+            if (Engine.checkAABB(local, p)) {
+                if (p.type === 3) { hitSpike = true; return; }
+                if (local.vx > 0) local.x = p.x - local.width;
+                if (local.vx < 0) local.x = p.x + p.width;
 
 
         // Y movement physics handling
