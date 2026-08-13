@@ -153,7 +153,7 @@ const ALL_LEVELS = [
         "0000000000",
         "0000000000",
         "0000000030",
-        "1100101111", // Spikes guarding the final dash!
+        "1100200011", // Spikes guarding the final dash!
         "0000000000"
     ]
 ];
