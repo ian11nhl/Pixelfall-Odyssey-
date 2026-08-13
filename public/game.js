@@ -12,7 +12,7 @@ const CONFIG = {
     WALK_SPEED: 4.5,
     JUMP_FORCE: 13,
     SPAWN_X: 40,
-    SPAWN_Y: 150,
+    SPAWN_Y: 250,
     LAVA_BASE_HEIGHT: 50
 };
 
