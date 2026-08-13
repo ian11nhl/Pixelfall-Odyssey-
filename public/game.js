@@ -9,8 +9,8 @@ socket.emit('joinGame', chosenName || "Anonymous");
 const CONFIG = {
     GRAVITY: 0.5,
     FRICTION: 0.85,
-    WALK_SPEED: 5,
-    JUMP_FORCE: 14,
+    WALK_SPEED: 4.5,
+    JUMP_FORCE: 13,
     SPAWN_X: 40,
     SPAWN_Y: 200,
     LAVA_BASE_HEIGHT: 50
@@ -280,13 +280,13 @@ function runUpdateCycle() {
         local.x += local.vx;
         let hitSpike = false;
         
-                // 2. Check for Spike damage with custom shrunk hitboxes
-         platforms.forEach(p => {
+        platforms.forEach(p => {
             if (Engine.checkAABB(local, p)) {
                 if (p.type === 3) { hitSpike = true; return; }
                 if (local.vx > 0) local.x = p.x - local.width;
                 if (local.vx < 0) local.x = p.x + p.width;
-
+            }
+        });
 
         // Y movement physics handling
         local.grounded = false;
