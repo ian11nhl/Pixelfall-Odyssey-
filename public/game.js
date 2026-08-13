@@ -271,8 +271,8 @@ function runUpdateCycle() {
     if (myId && players[myId]) {
         const local = players[myId];
 
-        if (keys.ArrowLeft)  local.vx = -CONFIG.WALK_SPEED;
-        if (keys.ArrowRight) local.vx = CONFIG.WALK_SPEED;
+        if (keys.A)  local.vx = -CONFIG.WALK_SPEED;
+        if (keys.D) local.vx = CONFIG.WALK_SPEED;
         local.vx *= CONFIG.FRICTION;
         local.vy += CONFIG.GRAVITY;
 
@@ -323,7 +323,7 @@ function runUpdateCycle() {
 
 
         // Handle Jump commands
-        if (keys.ArrowUp && local.grounded) {
+        if (keys.W && local.grounded) {
             local.vy = -CONFIG.JUMP_FORCE;
             local.grounded = false;
         }
