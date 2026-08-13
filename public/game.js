@@ -86,7 +86,7 @@ const ALL_LEVELS = [
         "0000000000",
         "0400000000",
         "0100030000", // Watch your drop point!
-        "0000000000",
+        "0000010000",
         "0000200000",
         "1100000000",
         "0000000000"
@@ -113,7 +113,7 @@ const ALL_LEVELS = [
         "0000000000",
         "0000000000",
         "0220030000", // Spike right behind a boost spring!
-        "0000000000",
+        "0000010000",
         "1100001111",
         "0000000000"
     ],
@@ -127,7 +127,7 @@ const ALL_LEVELS = [
         "0000000000",
         "0000000000",
         "0001310000", // Blind drop spike!
-        "1100000011",
+        "1100100011",
         "0000000000"
     ],
     // Level 9: Precision Springing (Narrow spring pad centered in a massive hazard zone)
@@ -139,7 +139,7 @@ const ALL_LEVELS = [
         "0000000000",
         "0000000000",
         "0000130000", // Guarded platform edge
-        "0000000003",
+        "0000010003",
         "1100000011",
         "0000000000"
     ],
