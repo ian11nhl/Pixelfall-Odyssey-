@@ -22,7 +22,7 @@ let platforms = [];
 let currentLevelIndex = 0; // State variable track
 let localScore = 0;
 
-const keys = { ArrowUp: false, ArrowLeft: false, ArrowRight: false };
+const keys = { W: false, A: false, D: false };
 
 // --- 10 HARDCORE OBSTACLE MAPS (0=Sky, 1=Platform, 2=Bouncer, 3=Spikes) ---
 const ALL_LEVELS = [
