@@ -22,7 +22,7 @@ let platforms = [];
 let currentLevelIndex = 0; // State variable track
 let localScore = 0;
 
-const keys = { W: false, A: false, D: false };
+const keys = { ArrowUp: false, ArrowLeft: false, ArrowRight: false };
 
 // --- 10 HARDCORE OBSTACLE MAPS (0=Sky, 1=Platform, 2=Bouncer, 3=Spikes) ---
 const ALL_LEVELS = [
@@ -271,8 +271,8 @@ function runUpdateCycle() {
     if (myId && players[myId]) {
         const local = players[myId];
 
-        if (keys.A)  local.vx = -CONFIG.WALK_SPEED;
-        if (keys.D) local.vx = CONFIG.WALK_SPEED;
+        if (keys.ArrowLeft)  local.vx = -CONFIG.WALK_SPEED;
+        if (keys.ArrowRight) local.vx = CONFIG.WALK_SPEED;
         local.vx *= CONFIG.FRICTION;
         local.vy += CONFIG.GRAVITY;
 
@@ -280,13 +280,23 @@ function runUpdateCycle() {
         local.x += local.vx;
         let hitSpike = false;
         
-        platforms.forEach(p => {
-            if (Engine.checkAABB(local, p)) {
-                if (p.type === 3) { hitSpike = true; return; }
-                if (local.vx > 0) local.x = p.x - local.width;
-                if (local.vx < 0) local.x = p.x + p.width;
+                // 2. Check for Spike damage with custom shrunk hitboxes
+        if (p.type === 3) { 
+            // Shrink the hitbox so the player has to deeply intersect the triangle center
+            const tightSpikeHitbox = {
+                x: p.x + 6,              // Shaves 6 pixels off the left edge
+                y: p.y + 8,              // Lowers the top edge by 8 pixels (forgiving tip)
+                width: p.width - 12,     // Narrows the overall box width
+                height: p.height - 8     // Shortens the overall box height
+            };
+
+            // Run collision detection against the new smaller target box instead of 'p'
+            if (Engine.checkAABB(local, tightSpikeHitbox)) {
+                hitSpike = true; 
+                return; 
             }
-        });
+        }
+
 
         // Y movement physics handling
         local.grounded = false;
@@ -323,7 +333,7 @@ function runUpdateCycle() {
 
 
         // Handle Jump commands
-        if (keys.W && local.grounded) {
+        if (keys.ArrowUp && local.grounded) {
             local.vy = -CONFIG.JUMP_FORCE;
             local.grounded = false;
         }
