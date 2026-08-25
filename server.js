@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
     activePlayers[socket.id] = {
         x: 60,
         y: 200,
-        username: 'Guest',
+        username: '',
         colors: {
             head: generateHexColor(),
             body: generateHexColor(),

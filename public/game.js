@@ -12,7 +12,7 @@ const CONFIG = {
     WALK_SPEED: 4.5,
     JUMP_FORCE: 13,
     SPAWN_X: 40,
-    SPAWN_Y: 100,
+    SPAWN_Y: 300,
     LAVA_BASE_HEIGHT: 50
 };
 
@@ -86,7 +86,7 @@ const ALL_LEVELS = [
         "0000000000",
         "0400000000",
         "0100030000", // Watch your drop point!
-        "0000010000",
+        "0000000000",
         "0000200000",
         "1100000000",
         "0000000000"
@@ -113,7 +113,7 @@ const ALL_LEVELS = [
         "0000000000",
         "0000000000",
         "0220030000", // Spike right behind a boost spring!
-        "0000010000",
+        "0000000000",
         "1100001111",
         "0000000000"
     ],
@@ -127,7 +127,7 @@ const ALL_LEVELS = [
         "0000000000",
         "0000000000",
         "0001310000", // Blind drop spike!
-        "1100100011",
+        "1100000011",
         "0000000000"
     ],
     // Level 9: Precision Springing (Narrow spring pad centered in a massive hazard zone)
@@ -139,7 +139,7 @@ const ALL_LEVELS = [
         "0000000000",
         "0000000000",
         "0000130000", // Guarded platform edge
-        "0000010003",
+        "0000000003",
         "1100000011",
         "0000000000"
     ],
@@ -153,9 +153,69 @@ const ALL_LEVELS = [
         "0000000000",
         "0000000000",
         "0000000030",
-        "1100220011", // Spikes guarding the final dash!
+        "1100101111", // Spikes guarding the final dash!
         "0000000000"
-    ]
+    ],
+    [
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "0000000011",
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "0000220000",
+        "1100000000", 
+        "0000000000"
+    ],
+    [
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "2000220020", 
+        "0000000000"
+    ],
+    [
+        "0000000000",
+        "0000000000",
+        "4000000000",
+        "1100000000",
+        "0000000000",
+        "0000000011",
+        "0000000000",
+        "0000220000",
+        "1100000000", 
+        "0000000000"
+    ],
+    [
+        "0010100100",
+        "0010100000",
+        "0011100100",
+        "0010100100",
+        "0010100100",
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "1100222000", 
+        "0000000000"
+    ],
+    [
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "0000000000",
+        "0000100110",
+        "0001003000",
+        "0010001000",
+        "1100000000", 
+        "0000000000"
+    ],
 ];
 
 class Platform {
@@ -263,7 +323,7 @@ function runUpdateCycle() {
     ctx.fillStyle = '#fff';
     ctx.font = 'bold 16px sans-serif';
     ctx.textAlign = 'left';
-    ctx.fillText(`STAGE: ${currentLevelIndex + 1} / 10`, 20, 30);
+    ctx.fillText(`STAGE: ${currentLevelIndex + 1} / 20`, 20, 30);
     ctx.fillText(`COINS: ${localScore}`, 20, 55);
 
 
@@ -295,10 +355,19 @@ function runUpdateCycle() {
         platforms.forEach(p => {
     if (Engine.checkAABB(local, p)) {
         // 1. Check for Coin collection
-        if (p.type === 4) { 
-            if (!p.collected) { 
-                p.collected = true; 
-                localScore += 1; 
+        if (p.type === 4) {
+            if (!p.collected) {
+                p.collected = true;
+                localScore += 1;
+
+                // Coin acts as a teleport trigger.
+                // Move the player to the left side of the current level
+                // instead of leaving them standing on the coin.
+                local.x = 20;
+                local.y = p.y - local.height;
+                local.vx = 0;
+                local.vy = 0;
+                local.grounded = false;
             }
             return; // Skip normal solid wall blocking
         }
